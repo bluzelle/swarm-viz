@@ -1,31 +1,27 @@
 import * as THREE from 'three';
 
 export class Globe {
-    PI_HALF = Math.PI / 2;
+    private PI_HALF = Math.PI / 2;
+    private DEFAULT_MOVEMENT = 0.002;
+    private POINTS_RENDER_FACTOR = 50;
 
     opts = {};
     imgDir = '';
     width = 435;
     height = 800;
-    camera = null;
-    scene = null;
-    renderer = null;
-    mesh = null;
-    container = null;
-    curZoomSpeed = 0;
-    rotation = {x: 0, y: 0, z: 0};
-    target = {x: Math.PI * 3 / 2, y: Math.PI / 6.0};
-    distance = 2300;
-    distanceTarget = 2500;
-    overRenderer = false;
-    mouse = { x: 0, y: 0 };
-    mouseOnDown = { x: 0, y: 0 };
-    targetOnDown = { x: 0, y: 0 };
-    mouseMove = this.onMouseMove.bind(this);
-    mouseUp = this.onMouseUp.bind(this);
-    mouseOut = this.onMouseUp.bind(this);
-    points = [];
-
+    private camera = null;
+    private scene = null;
+    private renderer = null;
+    private mesh = null;
+    private container = null;
+    private distance = 2500;
+    private mouseOnDown = { x: 0, y: 0 };
+    private targetOnDown = { x: 0, y: 0 };
+    private mouseMove = this.onMouseMove.bind(this);
+    private mouseUp = this.onMouseUp.bind(this);
+    private mouseOut = this.onMouseUp.bind(this);
+    private points = [];
+    private movement = this.DEFAULT_MOVEMENT;
 
 
     constructor(container, opts) {
@@ -86,15 +82,6 @@ export class Globe {
 
         this.container.addEventListener('mousedown', this.onMouseDown.bind(this), false);
         window.addEventListener('resize', this.onWindowResize.bind(this), false);
-
-        this.container.addEventListener('mouseover', function() {
-            self.overRenderer = true;
-        }, false);
-
-        this.container.addEventListener('mouseout', function() {
-            self.overRenderer = false;
-        }, false);
-
     }
 
     private init(texture, shaders) {
@@ -105,6 +92,9 @@ export class Globe {
       this.camera.position.z = this.distance;
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color( 0x1c588a );
+
+      this.scene.rotation.y = 2.3;
+
       const geometry = new THREE.SphereGeometry(this.width, 100, 70);
       shader = shaders['earth'];
       uniforms = THREE.UniformsUtils.clone(shader.uniforms);
@@ -138,12 +128,9 @@ export class Globe {
       this.renderer.setSize(this.width, this.height);
 
       this.container.appendChild(this.renderer.domElement);
-      window.addEventListener('resize', this.onWindowResize, false);
+      window.addEventListener('resize', this.onWindowResize.bind(this), false);
 
       const self = this;
-      this.points.forEach((p) => {
-          self.renderPoint(p, self.scene);
-      });
     }
 
     private onWindowResize( event ) {
@@ -154,34 +141,32 @@ export class Globe {
 
     private onMouseDown(event) {
         event.preventDefault();
+        this.movement = 0;
 
         this.container.addEventListener('mousemove', this.mouseMove, false);
         this.container.addEventListener('mouseup', this.mouseUp, false);
         this.container.addEventListener('mouseout', this.mouseOut, false);
 
-        this.mouseOnDown.x = - event.clientX;
+        this.mouseOnDown.x = event.clientX;
         this.mouseOnDown.y = event.clientY;
 
-        this.targetOnDown.x = this.target.x;
-        this.targetOnDown.y = this.target.y;
+        this.targetOnDown.x = this.scene.rotation.x;
+        this.targetOnDown.y = this.scene.rotation.y;
 
         this.container.style.cursor = 'move';
     }
 
     private onMouseMove(event) {
-        this.mouse.x = - event.clientX;
-        this.mouse.y = event.clientY;
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
 
-        const zoomDamp = this.distance / 1000;
-
-        this.target.x = this.targetOnDown.x + (this.mouse.x - this.mouseOnDown.x) * 0.005 * zoomDamp;
-        this.target.y = this.targetOnDown.y + (this.mouse.y - this.mouseOnDown.y) * 0.005 * zoomDamp;
-
-        this.target.y = this.target.y > this.PI_HALF ? this.PI_HALF : this.target.y;
-        this.target.y = this.target.y < - this.PI_HALF ? - this.PI_HALF : this.target.y;
+        this.scene.rotation.y = this.targetOnDown.y + (mouseX - this.mouseOnDown.x) * 0.005;
+        this.scene.rotation.x = this.targetOnDown.x + (mouseY - this.mouseOnDown.y) * 0.005;
+        console.log(this.scene.rotation);
     }
 
     private onMouseUp(event) {
+        this.movement = this.DEFAULT_MOVEMENT;
         this.container.removeEventListener('mousemove', this.mouseMove, false);
         this.container.removeEventListener('mouseup', this.mouseUp, false);
         this.container.removeEventListener('mouseout', this. mouseOut, false);
@@ -194,11 +179,6 @@ export class Globe {
         this.container.removeEventListener('mouseout', this. mouseOut, false);
     }
 
-    private zoom(delta) {
-        this.distanceTarget -= delta;
-        this.distanceTarget = this.distanceTarget > 1000 ? 1000 : this.distanceTarget;
-        this.distanceTarget = this.distanceTarget < 350 ? 350 : this.distanceTarget;
-    }
 
 
     addPoint(lat: number, lng: number, value: number){
@@ -209,9 +189,27 @@ export class Globe {
         });
     }
 
+    private renderPointsRec(points,delay,steps){
+        const self = this;
+        const head = points.slice(0,steps);
+        const tail = points.slice(steps);
+        if(tail.length > 0){
+            setTimeout(()=>{
+                head.forEach((h)=>{
+                    self.renderPoint(h, self.scene);
+                });
+                self.renderPointsRec(tail,delay,steps);
+            },delay)   
+        }
+    }
+
+    renderPoints(){
+        this.renderPointsRec(this.points, 10,this.points.length /this.POINTS_RENDER_FACTOR);
+    }
+
     private renderPoint(pointData, parent) {
-        const color = ((pointData.value) * 0xFFFFFF << 0);
-        const geometry = new THREE.BoxGeometry( pointData.value, pointData.value, pointData.value );
+        const color = (0xFFFFFF << 0);
+        const geometry = new THREE.BoxGeometry( 1, 1, pointData.value * 600 );
         const material = new THREE.MeshBasicMaterial( {color: new THREE.Color( color )} );
         const cylinder = new THREE.Mesh( geometry, material );
 
@@ -230,22 +228,15 @@ export class Globe {
 
     animate() {
         if (this.scene != null) {
-            this.scene.rotation.y += 0.001;
+            this.scene.rotation.y += this.movement;
             this.render();
         }
-        setTimeout(this.animate.bind(this), 1);
+        setTimeout(this.animate.bind(this), 20);
     }
 
     render() {
-        this.rotation.x += (this.target.x - this.rotation.x) * 0.1;
-        this.rotation.y += (this.target.y - this.rotation.y) * 0.1;
-        this.distance += (this.distanceTarget - this.distance) * 0.3;
         const posLook = {x: this.mesh.position.x, y: this.mesh.position.y, z: this.mesh.position.z};
-        // this.camera.lookAt(this.mesh.position);
         this.camera.position.x = -250;
-        /*this.camera.position.x = this.distance * Math.sin(this.rotation.x) * Math.cos(this.rotation.y);
-        this.camera.position.y = this.distance * Math.sin(this.rotation.y) ;
-        this.camera.position.z = this.distance * Math.cos(this.rotation.x) * Math.cos(this.rotation.y);*/
         this.renderer.render(this.scene, this.camera);
     }
 }

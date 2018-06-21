@@ -17,30 +17,35 @@ export class GlobeComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    const MIN_POPULATION_FILTER = 0.003;
+
+
     const globe = new Globe(this.rendererContainer.nativeElement, {
       imgDir: this.imgDir
     });
 
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../assets/population_small.json', true);
-    xhr.onreadystatechange = function(e) {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          JSON.parse(xhr.responseText).reduce((a, b) =>{
-            if (a instanceof Array && a[a.length - 1].length < 3) {
-              a[a.length - 1].push(b);
-              return a;
-            } else {
-                return a.concat([[b]]);
-            }
-          }, [[]]).forEach((v) => {
-            globe.addPoint(v[0], v[1], v[2]);
-          });
-
+    setTimeout(( ) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '../../assets/population.json', true);
+      xhr.onreadystatechange = function(e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            JSON.parse(xhr.responseText).reduce((a, b) => {
+              if (a instanceof Array && a[a.length - 1].length < 3) {
+                a[a.length - 1].push(b);
+                return a;
+              } else {
+                  return a.concat([[b]]);
+              }
+            }, [[]]).filter((v) => v[2] > MIN_POPULATION_FILTER).forEach((v) => {
+              globe.addPoint(v[0], v[1], v[2]);
+            });
+            globe.renderPoints();
+          }
         }
-      }
-    };
-    xhr.send(null);
+      };
+      xhr.send(null);
+    }, 1000);
   }
 
 
