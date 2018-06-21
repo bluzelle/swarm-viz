@@ -1,0 +1,95 @@
+<div class="row" style="margin-bottom:30px !important">
+    <div class="col-lg-12" align="left">
+            <img src="https://eventil.s3.amazonaws.com/uploads/group/avatar/2803/highres_468487350.jpeg" style="height:100px;width:auto;"/>
+            <h4 style="color:#FFF">Realtime visiualization</h4>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-4">
+        <p class="card-title">{{numDbs | number}}</p>
+        <p class="card-subtitle"> Number Databases</p>
+    </div>
+    <div class="col-lg-4">
+        <p class="card-title">{{crudCommits | number}}</p>
+        <p class="card-subtitle"> Number CRUD Commits</p>
+    </div>
+    <div class="col-lg-4">
+        <p class="card-title">{{peersList.length | number}}</p>
+        <p class="card-subtitle"> Number Peers</p>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-8">
+        <canvas #dbSizeChart id="canvas" width="250" height="50" style="margin:30px">{{ chart }}</canvas>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <p class="card-title">{{totalDbSize | number}}</p>
+            <p class="card-subtitle"> Total DB Size</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <canvas #totalKvpChart id="canvas" width="250" height="50" style="margin:30px">{{ chart }}</canvas>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <p class="card-title">{{totalKvp | number}}</p>
+            <p class="card-subtitle"> Total KVP</p>
+        </div>
+    </div>
+</div>
+
+<!--div class="row">
+  <div class="col-lg-8">
+    <div class="row">
+        <div class="card">
+            <p class="card-title">874,304,208</p>
+            <p class="card-subtitle"> Total KVP</p>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px !important;">
+        <div class="card">
+            <p class="card-title">703,208,348</p>
+            <p class="card-subtitle"> Bytes/KVP</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+      <p class="card-title">88</p>
+      <p class="card-subtitle">MEAN Bytes/KVP</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <p class="card-title">23ms</p>
+            <p class="card-subtitle">MAX PING</p>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <p class="card-title">1ms</p>
+            <p class="card-subtitle">MIN PING</p>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <p class="card-title">18ms</p>
+            <p class="card-subtitle">AVG PING</p>
+        </div>
+    </div-->
+    <!--canvas #rendererContainer id="canvas" width="300" height="70" style="margin:30px">{{ chart }}</canvas>
+</div-->
+
+
+
