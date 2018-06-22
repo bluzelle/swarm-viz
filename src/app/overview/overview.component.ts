@@ -14,7 +14,7 @@ import * as R from 'ramda';
 })
 export class OverviewComponent implements OnInit {
 
-  TIMEOUT = 100;
+  TIMEOUT = 1000;
   NUMBER_ENTRIES_CACHE = 15;
 
   chartFactory = new ChartFactory();
@@ -23,18 +23,21 @@ export class OverviewComponent implements OnInit {
   totalKvp = 0;
   numDbs = 0;
   crudCommits = 0;
+  transactionLatency = 0;
   peersList = [];
 
   @ViewChild('overviewContainer') overviewContainer: ElementRef;
   @ViewChild('dbSizeChart') dbSizeChartElement: ElementRef;
   @ViewChild('totalKvpChart') totalKvpChartElement: ElementRef;
+  @ViewChild('transactionLatencyChart') transactionLatencyChart: ElementRef;
+
 
 
   constructor(private communicationService: CommunicationService) {
     communicationService.change.subscribe(rotation => {
-      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.overviewContainer, {start: 0.3, end: 0.4});
-      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.overviewContainer, {start: 0.8, end: 1.2});
-      //this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.overviewContainer, {start: 0.3, end: 0.4});
+      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.overviewContainer, {start: 0.2, end: 2.0});
+      // this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.overviewContainer, {start: 0.8, end: 1.2});
+      // this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.overviewContainer, {start: 0.3, end: 0.4});
     });
   }
 
@@ -54,10 +57,14 @@ export class OverviewComponent implements OnInit {
     const ctxTotalKvp = this.totalKvpChartElement.nativeElement.getContext('2d');
     const chartTotalKvp = this.chartFactory.getDefaultLineChart(ctxTotalKvp);
 
+    const ctxTransactionLat = this.transactionLatencyChart.nativeElement.getContext('2d');
+    const chartTransactionLat = this.chartFactory.getDefaultLineChart(ctxTransactionLat);
+
 
     const charts: Array<ChartMapEntry> = [
       new ChartMapEntry('ChartDBSize', chartDBSize, (state) => state.totaldbsize),
       new ChartMapEntry('ChartTotalKvp', chartTotalKvp, (state) => state.totalkvp),
+      new ChartMapEntry('ChartTransactionLatency', chartTransactionLat, (state) => state.transactionLatency)
     ];
 
     bluzelle.connect('ws://127.0.0.1:8100', '');
@@ -70,7 +77,9 @@ export class OverviewComponent implements OnInit {
   }
 
   update(states, charts, timeout) {
+    const timeNow = Date.now();
     const stateHandling = (state) => {
+      state.transactionLatency = Date.now() - timeNow;
       const renderCharts = R.curry(this.chartFactory.renderCharts)(charts).bind(this.chartFactory);
       const processPipe = R.pipe(this.stateUtils.updateStates, renderCharts);
       this.renderUI(state);
@@ -85,6 +94,7 @@ export class OverviewComponent implements OnInit {
     this.crudCommits = newState.crudcommits;
     this.numDbs = newState.numdbs;
     this.peersList = newState.peersList;
+    this.transactionLatency = newState.transactionLatency;
   }
 
   renderSatelliteEffect(rotation, rotationNew, container: ElementRef, area) {
