@@ -2,7 +2,6 @@ import * as THREE from 'three';
 
 export class Globe {
     private PI_HALF = Math.PI / 2;
-    private DEFAULT_MOVEMENT = 0.002;
     private POINTS_RENDER_FACTOR = 50;
 
     opts = {};
@@ -21,7 +20,6 @@ export class Globe {
     private mouseUp = this.onMouseUp.bind(this);
     private mouseOut = this.onMouseUp.bind(this);
     private points = [];
-    private movement = this.DEFAULT_MOVEMENT;
 
 
     constructor(container, opts) {
@@ -93,7 +91,7 @@ export class Globe {
       this.scene = new THREE.Scene();
       this.scene.background = new THREE.Color( 0x1c588a );
 
-      this.scene.rotation.y = 2.3;
+      this.scene.rotation.y = 0.0;
 
       const geometry = new THREE.SphereGeometry(this.width, 100, 70);
       shader = shaders['earth'];
@@ -141,7 +139,6 @@ export class Globe {
 
     private onMouseDown(event) {
         event.preventDefault();
-        this.movement = 0;
 
         this.container.addEventListener('mousemove', this.mouseMove, false);
         this.container.addEventListener('mouseup', this.mouseUp, false);
@@ -166,7 +163,6 @@ export class Globe {
     }
 
     private onMouseUp(event) {
-        this.movement = this.DEFAULT_MOVEMENT;
         this.container.removeEventListener('mousemove', this.mouseMove, false);
         this.container.removeEventListener('mouseup', this.mouseUp, false);
         this.container.removeEventListener('mouseout', this. mouseOut, false);
@@ -179,9 +175,7 @@ export class Globe {
         this.container.removeEventListener('mouseout', this. mouseOut, false);
     }
 
-
-
-    addPoint(lat: number, lng: number, value: number){
+    addPoint(lat: number, lng: number, value: number) {
         this.points.push({
             lat: lat,
             lng: lng,
@@ -189,22 +183,22 @@ export class Globe {
         });
     }
 
-    private renderPointsRec(points,delay,steps){
+    private renderPointsRec(points, delay, steps) {
         const self = this;
-        const head = points.slice(0,steps);
+        const head = points.slice(0, steps);
         const tail = points.slice(steps);
-        if(tail.length > 0){
-            setTimeout(()=>{
-                head.forEach((h)=>{
+        if (tail.length > 0) {
+            setTimeout(() => {
+                head.forEach((h) => {
                     self.renderPoint(h, self.scene);
                 });
-                self.renderPointsRec(tail,delay,steps);
-            },delay)   
+                self.renderPointsRec(tail, delay, steps);
+            }, delay);
         }
     }
 
-    renderPoints(){
-        this.renderPointsRec(this.points, 10,this.points.length /this.POINTS_RENDER_FACTOR);
+    renderPoints() {
+        this.renderPointsRec(this.points, 10, this.points.length / this.POINTS_RENDER_FACTOR);
     }
 
     private renderPoint(pointData, parent) {
@@ -228,7 +222,6 @@ export class Globe {
 
     animate() {
         if (this.scene != null) {
-            this.scene.rotation.y += this.movement;
             this.render();
         }
         setTimeout(this.animate.bind(this), 20);
@@ -238,5 +231,14 @@ export class Globe {
         const posLook = {x: this.mesh.position.x, y: this.mesh.position.y, z: this.mesh.position.z};
         this.camera.position.x = -250;
         this.renderer.render(this.scene, this.camera);
+    }
+
+    rotate(rotationX, rotationY) {
+        this.scene.rotation.x = rotationX;
+        this.scene.rotation.y = rotationY;
+    }
+
+    getRotation() {
+        return this.scene.rotation;
     }
 }

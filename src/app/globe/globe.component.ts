@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { CommunicationService } from '../communication.service';
 import { Globe } from './globe';
+
 
 @Component({
   selector: 'app-globe',
@@ -8,12 +10,16 @@ import { Globe } from './globe';
 })
 
 export class GlobeComponent implements OnInit {
+  private ROTATE_GLOBE_INTERVAL_MS = 20;
+  private DEFAULT_MOVEMENT_Y = 0.002;
+  private DEFAULT_MOVEMENT_X = 0.0;
+
   @ViewChild('rendererContainer') rendererContainer: ElementRef;
   @ViewChild('rendererContainer') loading: ElementRef;
 
   imgDir = '../../img/world.jpg';
 
-  constructor() {
+  constructor(private communicationService: CommunicationService) {
   }
 
   ngAfterViewInit() {
@@ -23,6 +29,7 @@ export class GlobeComponent implements OnInit {
     const globe = new Globe(this.rendererContainer.nativeElement, {
       imgDir: this.imgDir
     });
+
 
     setTimeout(( ) => {
       const xhr = new XMLHttpRequest();
@@ -45,7 +52,18 @@ export class GlobeComponent implements OnInit {
         }
       };
       xhr.send(null);
+      this.rotateGlobe(globe, this.DEFAULT_MOVEMENT_X, this.DEFAULT_MOVEMENT_Y, this.ROTATE_GLOBE_INTERVAL_MS);
     }, 1000);
+  }
+
+  rotateGlobe(globe, movementX, movementY, delay) {
+    setTimeout(() => {
+      const newRotationX = globe.getRotation().x + movementX;
+      const newRotationY = globe.getRotation().y + movementY;
+      globe.rotate(newRotationX, newRotationY);
+      this.rotateGlobe(globe, movementX, movementY, delay);
+      this.communicationService.updateGlobeRotation({x: newRotationX, y: newRotationY});
+    }, delay);
   }
 
 
