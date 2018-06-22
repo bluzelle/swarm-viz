@@ -79,7 +79,7 @@ export class OverviewComponent implements OnInit {
   update(states, charts, timeout) {
     const timeNow = Date.now();
     const stateHandling = (state) => {
-      state.transactionLatency = Date.now() - timeNow;
+      state.transactionLatency = Date.now() - timeNow - timeout;
       const renderCharts = R.curry(this.chartFactory.renderCharts)(charts).bind(this.chartFactory);
       const processPipe = R.pipe(this.stateUtils.updateStates, renderCharts);
       this.renderUI(state);
