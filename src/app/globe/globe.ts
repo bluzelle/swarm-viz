@@ -14,11 +14,8 @@ export class Globe {
     private mesh = null;
     private container = null;
     private distance = 2500;
-    private mouseOnDown = { x: 0, y: 0 };
-    private targetOnDown = { x: 0, y: 0 };
-    private mouseMove = this.onMouseMove.bind(this);
-    private mouseUp = this.onMouseUp.bind(this);
-    private mouseOut = this.onMouseUp.bind(this);
+
+
     private points = [];
 
 
@@ -78,7 +75,6 @@ export class Globe {
             self.animate();
         });
 
-        this.container.addEventListener('mousedown', this.onMouseDown.bind(this), false);
         window.addEventListener('resize', this.onWindowResize.bind(this), false);
     }
 
@@ -137,43 +133,7 @@ export class Globe {
         this.renderer.setSize(this.width, this.height);
     }
 
-    private onMouseDown(event) {
-        event.preventDefault();
 
-        this.container.addEventListener('mousemove', this.mouseMove, false);
-        this.container.addEventListener('mouseup', this.mouseUp, false);
-        this.container.addEventListener('mouseout', this.mouseOut, false);
-
-        this.mouseOnDown.x = event.clientX;
-        this.mouseOnDown.y = event.clientY;
-
-        this.targetOnDown.x = this.scene.rotation.x;
-        this.targetOnDown.y = this.scene.rotation.y;
-
-        this.container.style.cursor = 'move';
-    }
-
-    private onMouseMove(event) {
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
-
-        this.scene.rotation.y = this.targetOnDown.y + (mouseX - this.mouseOnDown.x) * 0.005;
-        this.scene.rotation.x = this.targetOnDown.x + (mouseY - this.mouseOnDown.y) * 0.005;
-        console.log(this.scene.rotation);
-    }
-
-    private onMouseUp(event) {
-        this.container.removeEventListener('mousemove', this.mouseMove, false);
-        this.container.removeEventListener('mouseup', this.mouseUp, false);
-        this.container.removeEventListener('mouseout', this. mouseOut, false);
-        this.container.style.cursor = 'auto';
-    }
-
-    private onMouseOut(event) {
-        this.container.removeEventListener('mousemove', this.mouseMove, false);
-        this.container.removeEventListener('mouseup', this.mouseUp, false);
-        this.container.removeEventListener('mouseout', this. mouseOut, false);
-    }
 
     addPoint(lat: number, lng: number, value: number) {
         this.points.push({

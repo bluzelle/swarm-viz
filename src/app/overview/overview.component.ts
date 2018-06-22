@@ -32,7 +32,7 @@ export class OverviewComponent implements OnInit {
 
   constructor(private communicationService: CommunicationService) {
     communicationService.change.subscribe(rotation => {
-      this.renderSatelliteEffect(rotation, this.overviewContainer);
+      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.overviewContainer, {start: 0.3, end: 0.8});
     });
   }
 
@@ -84,24 +84,30 @@ export class OverviewComponent implements OnInit {
     this.peersList = newState.peersList;
   }
 
-  renderSatelliteEffect(globeRotation, container: ElementRef) {
-    const rotY = globeRotation.y;
+  renderSatelliteEffect(rotation, rotationNew, container: ElementRef, area) {
+    const rotYDelta = (rotationNew.y - rotation.y);
+    const delta = 0.3;
     let factor = 0;
-    if (rotY < 0.5) {
-      factor  = - 1;
-    } else if (rotY < 0.8) {
-      factor = 0;
-    } else {
+    if (rotation.y > (area.start - delta)) {
       factor = 1;
     }
+    if (rotation.y < (area.end + delta)) {
+      factor = -1;
+    }
+    console.log(rotation.y);
+    const rotY =  rotYDelta * factor;
 
-    const op = +container.nativeElement.style.opacity;
-    const opacity = op + ((factor * - 1) / 50);
-    container.nativeElement.style.opacity = '' +  opacity;
+
+
 
     const left = +container.nativeElement.style.left.replace('px', '');
-    const posX = left  + (factor / 2);
+    const posX = left + (rotY * -100);
     container.nativeElement.style.left =  '' + posX + 'px';
+
+
+     const op = +container.nativeElement.style.opacity;
+     const opacity = op + (rotY * 10);
+     container.nativeElement.style.opacity = '' +  opacity;
 
     /*const width = +container.nativeElement.style.width.replace('px', '');
     const newWidth = width + ((factor / 2) * - 1);

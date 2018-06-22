@@ -13,6 +13,13 @@ export class GlobeComponent implements OnInit {
   private ROTATE_GLOBE_INTERVAL_MS = 20;
   private DEFAULT_MOVEMENT_Y = 0.002;
   private DEFAULT_MOVEMENT_X = 0.0;
+  private mouseMove = this.onMouseMove.bind(this);
+  private mouseUp = this.onMouseUp.bind(this);
+  private mouseOut = this.onMouseUp.bind(this);
+  private mouseOnDown = { x: 0, y: 0 };
+  private targetOnDown = { x: 0, y: 0 };
+  private globe = null;
+
 
   @ViewChild('rendererContainer') rendererContainer: ElementRef;
   @ViewChild('rendererContainer') loading: ElementRef;
@@ -22,16 +29,20 @@ export class GlobeComponent implements OnInit {
   constructor(private communicationService: CommunicationService) {
   }
 
+  ngOnInit() {
+  }
+
   ngAfterViewInit() {
     const MIN_POPULATION_FILTER = 0.003;
 
 
-    const globe = new Globe(this.rendererContainer.nativeElement, {
+    this.globe = new Globe(this.rendererContainer.nativeElement, {
       imgDir: this.imgDir
     });
 
 
-    setTimeout(( ) => {
+    const self = this;
+    setTimeout(() => {
       const xhr = new XMLHttpRequest();
       xhr.open('GET', '../../assets/population.json', true);
       xhr.onreadystatechange = function(e) {
@@ -45,14 +56,15 @@ export class GlobeComponent implements OnInit {
                   return a.concat([[b]]);
               }
             }, [[]]).filter((v) => v[2] > MIN_POPULATION_FILTER).forEach((v) => {
-              globe.addPoint(v[0], v[1], v[2]);
+              self.globe.addPoint(v[0], v[1], v[2]);
             });
-            globe.renderPoints();
+            self.globe.renderPoints();
           }
         }
       };
       xhr.send(null);
-      this.rotateGlobe(globe, this.DEFAULT_MOVEMENT_X, this.DEFAULT_MOVEMENT_Y, this.ROTATE_GLOBE_INTERVAL_MS);
+      this.rotateGlobe(this.globe, this.DEFAULT_MOVEMENT_X, this.DEFAULT_MOVEMENT_Y, this.ROTATE_GLOBE_INTERVAL_MS);
+      this.rendererContainer.nativeElement.addEventListener('mousedown', this.onMouseDown.bind(this), false);
     }, 1000);
   }
 
@@ -66,8 +78,41 @@ export class GlobeComponent implements OnInit {
     }, delay);
   }
 
+  private onMouseDown(event) {
+      event.preventDefault();
 
+      this.rendererContainer.nativeElement.addEventListener('mousemove', this.mouseMove, false);
+      this.rendererContainer.nativeElement.addEventListener('mouseup', this.mouseUp, false);
+      this.rendererContainer.nativeElement.addEventListener('mouseout', this.mouseOut, false);
 
-  ngOnInit() {
+      this.mouseOnDown.x = event.clientX;
+      this.mouseOnDown.y = event.clientY;
+      this.targetOnDown.x = this.globe.getRotation().x;
+      this.targetOnDown.y = this.globe.getRotation().y;
+
+      this.rendererContainer.nativeElement.style.cursor = 'move';
+  }
+
+  private onMouseMove(event) {
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    const rotY = this.targetOnDown.y + (mouseX - this.mouseOnDown.x) * 0.005;
+    const rotX =  this.targetOnDown.x + (mouseY - this.mouseOnDown.y) * 0.0005;
+    this.globe.rotate(rotX, rotY);
+    this.communicationService.updateGlobeRotation({x: this.globe.getRotation().x, y: this.globe.getRotation().y});
+  }
+
+  private onMouseUp(event) {
+    this.rendererContainer.nativeElement.removeEventListener('mousemove', this.mouseMove, false);
+    this.rendererContainer.nativeElement.removeEventListener('mouseup', this.mouseUp, false);
+    this.rendererContainer.nativeElement.removeEventListener('mouseout', this. mouseOut, false);
+    this.rendererContainer.nativeElement.style.cursor = 'auto';
+  }
+
+  private onMouseOut(event) {
+    this.rendererContainer.nativeElement.removeEventListener('mousemove', this.mouseMove, false);
+    this.rendererContainer.nativeElement.removeEventListener('mouseup', this.mouseUp, false);
+    this.rendererContainer.nativeElement.removeEventListener('mouseout', this. mouseOut, false);
   }
 }
