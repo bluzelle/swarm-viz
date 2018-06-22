@@ -32,7 +32,9 @@ export class OverviewComponent implements OnInit {
 
   constructor(private communicationService: CommunicationService) {
     communicationService.change.subscribe(rotation => {
-      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.overviewContainer, {start: 0.3, end: 0.8});
+      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.overviewContainer, {start: 0.3, end: 0.4});
+      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.overviewContainer, {start: 0.8, end: 1.2});
+      //this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.overviewContainer, {start: 0.3, end: 0.4});
     });
   }
 
@@ -42,7 +44,8 @@ export class OverviewComponent implements OnInit {
     this.overviewContainer.nativeElement.style.left = '100px';
     this.overviewContainer.nativeElement.style.width = '700px';
     this.overviewContainer.nativeElement.style.height = '300px';
-    this.overviewContainer.nativeElement.style.opacity = '0.0';
+    this.overviewContainer.nativeElement.style.opacity = '1.0';
+    this.overviewContainer.nativeElement.style.transform = 'scale(0.0)';
 
 
     const ctxDbSize = this.dbSizeChartElement.nativeElement.getContext('2d');
@@ -85,29 +88,37 @@ export class OverviewComponent implements OnInit {
   }
 
   renderSatelliteEffect(rotation, rotationNew, container: ElementRef, area) {
-    const rotYDelta = (rotationNew.y - rotation.y);
     const delta = 0.3;
+    const start = area.start - delta;
+    const end = area.end + delta;
+
     let factor = 0;
-    if (rotation.y > (area.start - delta)) {
-      factor = 1;
+    if (rotation.y > start && rotation.y < area.start) {
+      factor = rotationNew.y - area.start;
     }
-    if (rotation.y < (area.end + delta)) {
-      factor = -1;
+    if (rotation.y > area.end && rotation.y < end) {
+      factor = (delta - (end - rotationNew.y)) * -1;
     }
-    console.log(rotation.y);
-    const rotY =  rotYDelta * factor;
+    factor = Math.round(factor * 10000) / 10000;
 
 
+    if (factor !== 0) {
+      const posX = (factor *  -3000);
+      container.nativeElement.style.left =  '' + posX + 'px';
 
+      /*let opacity = factor === 0 ? 0 : 0.1 / (factor * - 20);
+      if (opacity < 0.1) {
+        opacity = 0;
+      }
+      container.nativeElement.style.opacity = '' +  opacity;*/
 
-    const left = +container.nativeElement.style.left.replace('px', '');
-    const posX = left + (rotY * -100);
-    container.nativeElement.style.left =  '' + posX + 'px';
+      let scale = Math.abs(0.1 / (factor * - 25));
+      if (scale > 1.0) {
+        scale = 1.0;
+      }
+      container.nativeElement.style.transform = 'scale(' + scale + ')';
+    }
 
-
-     const op = +container.nativeElement.style.opacity;
-     const opacity = op + (rotY * 10);
-     container.nativeElement.style.opacity = '' +  opacity;
 
     /*const width = +container.nativeElement.style.width.replace('px', '');
     const newWidth = width + ((factor / 2) * - 1);

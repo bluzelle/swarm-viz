@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommunicationService } from '../communication.service';
 import { Globe } from './globe';
+import { GlobeUtils } from './globe.utils';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class GlobeComponent implements OnInit {
   private mouseOnDown = { x: 0, y: 0 };
   private targetOnDown = { x: 0, y: 0 };
   private globe = null;
+  private globeUtils = new GlobeUtils();
 
 
   @ViewChild('rendererContainer') rendererContainer: ElementRef;
@@ -72,9 +74,11 @@ export class GlobeComponent implements OnInit {
     setTimeout(() => {
       const newRotationX = globe.getRotation().x + movementX;
       const newRotationY = globe.getRotation().y + movementY;
-      globe.rotate(newRotationX, newRotationY);
+
+      const rotation = this.globeUtils.normalizeRotation({x: newRotationX, y: newRotationY});
+      globe.rotate(rotation.x, rotation.y);
       this.rotateGlobe(globe, movementX, movementY, delay);
-      this.communicationService.updateGlobeRotation({x: newRotationX, y: newRotationY});
+      this.communicationService.updateGlobeRotation(rotation);
     }, delay);
   }
 
@@ -99,7 +103,10 @@ export class GlobeComponent implements OnInit {
 
     const rotY = this.targetOnDown.y + (mouseX - this.mouseOnDown.x) * 0.005;
     const rotX =  this.targetOnDown.x + (mouseY - this.mouseOnDown.y) * 0.0005;
-    this.globe.rotate(rotX, rotY);
+
+    const rotation = this.globeUtils.normalizeRotation({x: rotX, y: rotY});
+    this.globe.rotate(rotation.x, rotation.y);
+
     this.communicationService.updateGlobeRotation({x: this.globe.getRotation().x, y: this.globe.getRotation().y});
   }
 
