@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-lg-8 col-sm-8">
+      <canvas #dbSizeChart id="canvas" width="250" height="50">{{ chart }}</canvas>
+  </div>
+  <div class="col-lg-4 col-sm-4">
+      <div class="card">
+          <p class="card-title">{{totalDbSize | number}}</p>
+          <p class="card-subtitle"> Total DB Size</p>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+      <canvas #totalKvpChart id="canvas" width="250" height="50">{{ chart }}</canvas>
+  </div>
+  <div class="col-lg-4">
+      <div class="card">
+          <p class="card-title">{{totalKvp | number}}</p>
+          <p class="card-subtitle"> Total KVP</p>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+      <canvas #transactionLatencyChart id="canvas" width="250" height="50">{{ chart }}</canvas>
+  </div>
+  <div class="col-lg-4">
+      <div class="card">
+          <p class="card-title">{{transactionLatency | number}} ms</p>
+          <p class="card-subtitle"> Transaction Latency</p>
+      </div>
+  </div>
+</div>

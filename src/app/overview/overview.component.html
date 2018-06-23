@@ -6,59 +6,18 @@
 </div>
 
 
-<div  #overviewContainer class="satellite-container" style="position:absolute;">
-    <div class="row">
-        <div class="col-lg-4 col-sm-4"  align="center">
-            <p class="card-title">{{numDbs | number}}</p>
-            <p class="card-subtitle"> Number Databases</p>
-        </div>
-        <div class="col-lg-4 col-sm-4"  align="center">
-            <p class="card-title">{{crudCommits | number}}</p>
-            <p class="card-subtitle"> Number CRUD Commits</p>
-        </div>
-        <div class="col-lg-4 col-sm-4"  align="center">
-            <p class="card-title">{{peersList.length | number}}</p>
-            <p class="card-subtitle"> Number Peers</p>
-        </div>
-    </div>
 
+<div #firstPage class="satellite-container">
+    <app-firstpage></app-firstpage>
+</div> 
 
-    <div class="row">
-        <div class="col-lg-8 col-sm-8">
-            <canvas #dbSizeChart id="canvas" width="250" height="50">{{ chart }}</canvas>
-        </div>
-        <div class="col-lg-4 col-sm-4">
-            <div class="card">
-                <p class="card-title">{{totalDbSize | number}}</p>
-                <p class="card-subtitle"> Total DB Size</p>
-            </div>
-        </div>
-    </div>
+<div #secondPage class="satellite-container">
+    <app-secondpage></app-secondpage>
+</div> 
 
-    <div class="row">
-        <div class="col-lg-8">
-            <canvas #totalKvpChart id="canvas" width="250" height="50">{{ chart }}</canvas>
-        </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <p class="card-title">{{totalKvp | number}}</p>
-                <p class="card-subtitle"> Total KVP</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-8">
-            <canvas #transactionLatencyChart id="canvas" width="250" height="50">{{ chart }}</canvas>
-        </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <p class="card-title">{{transactionLatency | number}} ms</p>
-                <p class="card-subtitle"> Transaction Latency</p>
-            </div>
-        </div>
-    </div>
-</div>
+<div #summaryPage class="satellite-container">
+    <app-summarypage></app-summarypage>
+</div> 
 
 
 
