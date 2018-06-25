@@ -37,3 +37,25 @@
     opacity: 1.0;
     transform: scale(0.0);
 }
+
+#view-switch{
+    position: absolute;
+    left:20px;
+    bottom: 100px;
+}
+
+.button-segment-active{
+    color: #1c588a;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.button-segment-inactive{
+    color: #1c588a;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+    padding-left: 30px;
+    padding-right: 30px;
+}
