@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-lg-8 col-sm-8">
-      <canvas #dbSizeChart id="canvas" width="250" height="50">{{ chart }}</canvas>
+    <div class="graph-border" style="height:100px"></div>
+    <canvas #dbSizeChart id="canvas" width="250" height="50">{{ chart }}</canvas>
   </div>
   <div class="col-lg-4 col-sm-4">
       <div class="card">
@@ -12,6 +13,7 @@
 
 <div class="row">
   <div class="col-lg-8">
+      <div class="graph-border" style="height:100px"></div>
       <canvas #totalKvpChart id="canvas" width="250" height="50">{{ chart }}</canvas>
   </div>
   <div class="col-lg-4">
@@ -24,7 +26,8 @@
 
 <div class="row">
   <div class="col-lg-8">
-      <canvas #transactionLatencyChart id="canvas" width="250" height="50">{{ chart }}</canvas>
+    <div class="graph-border" style="height:100px"></div>
+    <canvas #transactionLatencyChart id="canvas" width="250" height="50">{{ chart }}</canvas>
   </div>
   <div class="col-lg-4">
       <div class="card">

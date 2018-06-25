@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { CommunicationService } from '../communication.service';
 
-import { ChartFactory,  ChartMapEntry } from '../../chart.factory';
+import { ChartFactory,  ChartMapEntry } from '../../app/chart.factory';
 
-
-import * as R from 'ramda';
 
 @Component({
   selector: 'app-overview',
@@ -24,9 +22,9 @@ export class OverviewComponent implements OnInit {
 
   constructor(private communicationService: CommunicationService) {
     communicationService.change.subscribe(rotation => {
-      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.firstPage, {start: 0.2, end: 0.4});
-      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.secondPage, {start: 0.6, end: 0.8});
-      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.summaryPage, {start: 1.0, end: 1.2});
+      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.firstPage, {start: 0.2, end: 0.8});
+      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.secondPage, {start: 1.0, end: 1.6});
+      // this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.summaryPage, {start: 1.0, end: 2.0});
     });
   }
 
@@ -43,27 +41,38 @@ export class OverviewComponent implements OnInit {
     const end = area.end + delta;
 
     let factor = 0;
+    let scaleFactor = 0;
+    let opacityFactor = 0.0;
+    let factorX = 0.0;
     if (rotation.y > start && rotation.y < area.start) {
       factor = rotationNew.y - area.start;
+      factor = Math.round(factor * 10000) / 10000;
+      scaleFactor = factor * (- 25);
+      scaleFactor = Math.abs(0.1 / scaleFactor);
+      if (scaleFactor < 0.05) {
+        scaleFactor = 0;
+      }
+      if (scaleFactor > 1.0) {
+        scaleFactor = 1.0;
+      }
+      opacityFactor = 1.0;
+      factorX = (factor *  -3000);
+      if (factorX < 15) {
+        factorX = 0;
+      }
     }
     if (rotation.y > area.end && rotation.y < end) {
       factor = (delta - (end - rotationNew.y)) * -1;
+      factor = Math.round(factor * 10000) / 10000;
+      scaleFactor = 1.0; // (factor * (- 25)) + 1;
+      opacityFactor = 1 + factor *  25;
+      factorX = 0;
     }
-    factor = Math.round(factor * 10000) / 10000;
-
 
     if (factor !== 0) {
-      const posX = (factor *  -3000);
-      container.nativeElement.style.left =  '' + posX + 'px';
-
-      let scale = Math.abs(0.1 / (factor * - 25));
-      if (scale > 1.0) {
-        scale = 1.0;
-      }
-      if (scale < 0.05) {
-        scale = 0;
-      }
-      container.nativeElement.style.transform = 'scale(' + scale + ')';
+      container.nativeElement.style.left =  '' + factorX + 'px';
+      container.nativeElement.style.transform = 'scale(' + scaleFactor + ')';
+      container.nativeElement.style.opacity = '' + opacityFactor;
     }
   }
 }

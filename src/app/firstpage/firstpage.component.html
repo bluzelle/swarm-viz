@@ -1,14 +1,32 @@
 <div class="row">
-  <div class="col-lg-4 col-sm-4"  align="center">
-      <p class="card-title">{{numDbs | number}}</p>
-      <p class="card-subtitle"> Number Databases</p>
+  <div class="col-lg-6 col-sm-6"  align="center">
+      <div class="circle-group-dash">
+        <div class="circle-big">
+            <p class="title">{{numDbs | number}}</p>
+            <p class="subtitle"> Number Databases</p>
+        </div>
+        <div class="circle-small">
+            <p class="title">{{peersList.length | number}}</p>
+            <p class="subtitle"> Number Peers</p>
+        </div>
+      </div>
   </div>
-  <div class="col-lg-4 col-sm-4"  align="center">
-      <p class="card-title">{{crudCommits | number}}</p>
-      <p class="card-subtitle"> Number CRUD Commits</p>
-  </div>
-  <div class="col-lg-4 col-sm-4"  align="center">
-      <p class="card-title">{{peersList.length | number}}</p>
-      <p class="card-subtitle"> Number Peers</p>
+  <div class="col-lg-6 col-sm-6"  align="center">
+    <div class="circle-group-two-sub">
+        <div class="half-circle">
+            <p class="title">{{transactionLatency | number}} ms</p>
+            <p class="subtitle"> Transaction Latency</p>
+        </div>
+        <div class="bottom-bar">
+            <div class="left">
+                <p class="title">{{minTransactionLatency | number}} ms</p>
+                <p class="subtitle"> Min Latency</p>
+            </div>
+            <div class="right">
+                <p class="title">{{maxTransactionLatency | number}} ms</p>
+                <p class="subtitle"> Max Latency</p>
+            </div>
+        </div>
+    </div>
   </div>
 </div>

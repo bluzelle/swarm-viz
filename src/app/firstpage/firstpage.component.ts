@@ -13,6 +13,8 @@ export class FirstpageComponent implements OnInit {
   numDbs = 0;
   crudCommits = 0;
   transactionLatency = 0;
+  minTransactionLatency = 50;
+  maxTransactionLatency = 0;
   peersList = [];
 
 
@@ -32,5 +34,11 @@ export class FirstpageComponent implements OnInit {
     this.numDbs = newState.numdbs;
     this.peersList = newState.peersList;
     this.transactionLatency = newState.transactionLatency;
+    if (newState.transactionLatency < this.minTransactionLatency) {
+      this.minTransactionLatency = newState.transactionLatency;
+    }
+    if (newState.transactionLatency > this.maxTransactionLatency) {
+      this.maxTransactionLatency = newState.transactionLatency;
+    }
   }
 }

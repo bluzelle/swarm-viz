@@ -21,8 +21,14 @@ export class ChartFactory {
       const chartLine = chartEntry.chart;
       const labels = states.map((a) => '');
       const values = states.map(chartEntry.extractor);
+      const colorsBack = states.map((a) => 'rgba(255, 255, 255,0.0)');
+      colorsBack[colorsBack.length - 1] = 'rgba(255, 255, 255,1.0)';
+      const colorsBorder = states.map((a) => 'rgba(255, 255, 255,0.0)');
+      colorsBorder[colorsBorder.length - 1] = 'rgba(255, 255, 255,0.5)';
       chartLine.data.labels = labels;
       chartLine.data.datasets[0].data  = values;
+      chartLine.data.datasets[0].pointBackgroundColor = colorsBack;
+      chartLine.data.datasets[0].pointBorderColor = colorsBorder;
       chartLine.update();
     }
 
@@ -40,6 +46,7 @@ export class ChartFactory {
                     fill: false,
                     pointBackgroundColor: 'rgba(255, 255, 255,0.0)',
                     pointBorderColor: 'rgba(255, 255, 255,0.0)',
+                    pointBorderWidth: 2,
                     lineTension: .5
                 }]
             },
