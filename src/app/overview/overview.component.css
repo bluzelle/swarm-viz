@@ -40,8 +40,8 @@
 
 #view-switch{
     position: absolute;
-    left:20px;
-    bottom: 100px;
+    left:500px;
+    top: 50px;
 }
 
 .button-segment-active{
@@ -59,3 +59,4 @@
     padding-left: 30px;
     padding-right: 30px;
 }
+

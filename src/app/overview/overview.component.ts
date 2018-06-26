@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommunicationService } from '../communication.service';
 
 import { ChartFactory,  ChartMapEntry } from '../../app/chart.factory';
@@ -20,11 +20,12 @@ export class OverviewComponent implements OnInit {
 
 
 
+
   constructor(private communicationService: CommunicationService) {
     communicationService.change.subscribe(rotation => {
-      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.firstPage, {start: 0.2, end: 0.8});
-      this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.secondPage, {start: 1.0, end: 1.6});
-      // this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.summaryPage, {start: 1.0, end: 2.0});
+       this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.firstPage, {start: 0.2, end: 3.0});
+      // this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.secondPage, {start: 1.0, end: 1.6});
+      // this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.summaryPage, {start: 1.8, end: 2.4});
     });
   }
 
@@ -52,8 +53,8 @@ export class OverviewComponent implements OnInit {
       if (scaleFactor < 0.05) {
         scaleFactor = 0;
       }
-      if (scaleFactor > 1.0) {
-        scaleFactor = 1.0;
+      if (scaleFactor > 0.9) {
+        scaleFactor = 0.9;
       }
       opacityFactor = 1.0;
       factorX = (factor *  -3000);
@@ -64,7 +65,7 @@ export class OverviewComponent implements OnInit {
     if (rotation.y > area.end && rotation.y < end) {
       factor = (delta - (end - rotationNew.y)) * -1;
       factor = Math.round(factor * 10000) / 10000;
-      scaleFactor = 1.0; // (factor * (- 25)) + 1;
+      scaleFactor = 0.9; // (factor * (- 25)) + 1;
       opacityFactor = 1 + factor *  25;
       factorX = 0;
     }

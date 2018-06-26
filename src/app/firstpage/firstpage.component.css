@@ -16,12 +16,13 @@
 .title{
     font-size: 24px;
     color: white;
+    margin-bottom: 0px;
 }
 
 .subtitle{
     text-transform: uppercase;
     font-size: 12px;
-    color: #DDDDDD;
+    color: #c3cad2;
 }
 
 .half-circle {
@@ -32,7 +33,11 @@
     border-top-right-radius: 160px;
     border: 2px solid #FFF;
     border-bottom: 0;
-    padding-top: 30px;
+    padding-top: 50px;
+}
+
+.half-circle .title{
+    font-size: 30px;
 }
 
 
@@ -61,11 +66,11 @@
 }
 
 .circle-small .subtitle{
-    font-size: 8px;
+    font-size: 10px;
 }
 
 .circle-small .title{
-    font-size: 20px;
+    font-size: 28px;
 }
 
 
@@ -81,7 +86,7 @@
     position: absolute;
     background-color: #1c588a;
     left:40px;
-    top: 150px;
+    top: 160px;
     width: 290px;
     height: 300px;
     -webkit-box-shadow: 0px -34px 29px 10px rgba(28,88,138,1);
@@ -105,4 +110,60 @@
 .circle-group-two-sub .bottom-bar .right{
     position: absolute;
     right:25px;
+}
+
+#doughnutCanvas {
+    position: absolute;
+    left: 63px;
+    top: -20px;
+    width: 240px !important;
+    height: 240px !important;
+}
+
+#doughnutCanvasDB {
+    position: absolute;
+    left: -10px;
+    top: -30px;
+    width: 260px !important;
+    height: 260px !important;
+}
+
+#doughnutCanvasKVP {
+    position: absolute;
+    left: 37px;
+    top: -15px;
+    width: 170px !important;
+    height: 170px !important;
+}
+
+#doughnutCanvasCRUD {
+    position: absolute;
+    left: -9px;
+    top: -30px;
+    width: 260px !important;
+    height: 260px !important;
+}
+
+#doughnutCanvasPeers {
+    position: absolute;
+    left: 212px;
+    top: 98px;
+    width: 165px !important;
+    height: 165px !important;
+}
+
+.card{
+    border: none;
+    padding:20px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.graph-border{
+    position: absolute;
+    left:0px;
+    -webkit-box-shadow: 23px 0px 28px 25px rgba(28,88,138,1);
+    -moz-box-shadow: 23px 0px 28px 25px rgba(28,88,138,1);
+    box-shadow: 23px 0px 28px 25px rgba(28,88,138,1);
 }

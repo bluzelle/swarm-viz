@@ -1,10 +1,12 @@
 <div class="row">
   <div class="col-lg-6 col-sm-6"  align="center">
       <div class="circle-group-dash">
+        <canvas #doughnut id="doughnutCanvas" width="150" height="150"> </canvas>
         <div class="circle-big">
             <p class="title">{{numDbs | number}}</p>
             <p class="subtitle"> Number Databases</p>
         </div>
+        <canvas #doughnutPeers id="doughnutCanvasPeers" width="150" height="150"> </canvas>
         <div class="circle-small">
             <p class="title">{{peersList.length | number}}</p>
             <p class="subtitle"> Number Peers</p>
@@ -12,21 +14,54 @@
       </div>
   </div>
   <div class="col-lg-6 col-sm-6"  align="center">
-    <div class="circle-group-two-sub">
-        <div class="half-circle">
-            <p class="title">{{transactionLatency | number}} ms</p>
-            <p class="subtitle"> Transaction Latency</p>
-        </div>
-        <div class="bottom-bar">
-            <div class="left">
-                <p class="title">{{minTransactionLatency | number}} ms</p>
-                <p class="subtitle"> Min Latency</p>
+        <div class="circle-group-two-sub">
+            <div class="half-circle">
+                <p class="title">{{transactionLatency | number}} ms</p>
+                <p class="subtitle"> Transaction Latency</p>
             </div>
-            <div class="right">
-                <p class="title">{{maxTransactionLatency | number}} ms</p>
-                <p class="subtitle"> Max Latency</p>
+            <div class="bottom-bar">
+                <div class="left">
+                    <p class="title">{{minTransactionLatency | number}} ms</p>
+                    <p class="subtitle"> Min Latency</p>
+                </div>
+                <div class="right">
+                    <p class="title">{{maxTransactionLatency | number}} ms</p>
+                    <p class="subtitle"> Max Latency</p>
+                </div>
             </div>
         </div>
     </div>
-  </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-sm-4"  align="center">
+        <canvas #doughnutCRUD id="doughnutCanvasCRUD" width="150" height="150"> </canvas>
+        <div class="circle-big" style="padding-top:50px">
+            <p class="title" style="font-size: 27px;">{{crudCommits | number}}</p>
+            <p class="subtitle">CRUD Commits</p>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4"  align="center">
+            <canvas #doughnutKVP id="doughnutCanvasKVP" width="150" height="150"> </canvas>
+            <div class="circle-small">
+                <p class="title" >{{totalKvp | number}}</p>
+                <p class="subtitle">Total KVP</p>
+            </div>
+        </div>
+    <div class="col-lg-4 col-sm-4"  align="center">
+            <canvas #doughnutDB id="doughnutCanvasDB" width="150" height="150"> </canvas>
+            <div class="circle-big" style="padding-top:60px">
+                <p class="title" style="font-size: 23px;">{{totalDbSize | number}}</p>
+                <p class="subtitle">Total DB Size</p>
+            </div>
+        </div>
+</div>
+<div class="row"  style="height:100px">
+    <div class="col-lg-9">
+        <div class="graph-border"></div>
+        <canvas #transactionLatencyChart id="canvas" width="150" height="30">{{ chart }}</canvas>
+    </div>
+    <div class="col-lg-3" style="padding-top:40px" align="right">
+        <p class="title">{{transactionLatency | number}} ms</p>
+        <p class="subtitle"> Transaction Latency</p>
+    </div>
 </div>

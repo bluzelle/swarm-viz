@@ -22,7 +22,7 @@ export class SecondpageComponent implements OnInit {
 
   ngOnInit() {
     const ctxDbSize = this.dbSizeChartElement.nativeElement.getContext('2d');
-    const chartDBSize = this.chartFactory.getDefaultLineChart(ctxDbSize);
+    const chartDBSize = this.chartFactory.getDoughnutChart(ctxDbSize);
 
     const ctxTotalKvp = this.totalKvpChartElement.nativeElement.getContext('2d');
     const chartTotalKvp = this.chartFactory.getDefaultLineChart(ctxTotalKvp);

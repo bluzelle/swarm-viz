@@ -7,7 +7,7 @@ export class Globe {
     opts = {};
     imgDir = '';
     width = 435;
-    height = 800;
+    height = 700;
     private camera = null;
     private scene = null;
     private renderer = null;
@@ -23,8 +23,8 @@ export class Globe {
         this.container = container;
         this.opts = opts || this.opts;
         this.imgDir = opts.imgDir || this.imgDir;
-        this.width = opts.width || this.width;
-        this.height = opts.height || this.height;
+        this.width = this.container.clientWidth;
+        this.height = this.container.clientHeight;
         const shaders = {
             'earth' : {
                 uniforms: {
@@ -122,14 +122,16 @@ export class Globe {
       this.renderer.setSize(this.width, this.height);
 
       this.container.appendChild(this.renderer.domElement);
-      window.addEventListener('resize', this.onWindowResize.bind(this), false);
+      this.container.addEventListener('resize', this.onWindowResize.bind(this), false);
 
       const self = this;
     }
 
     private onWindowResize( event ) {
-        this.camera.aspect = this.width / this.height;
-        this.camera.updateProjectionMatrix();
+        this.width = this.container.clientWidth;
+        this.height = this.container.clientHeight;
+        //this.camera.aspect = this.width / this.height;
+        //this.camera.updateProjectionMatrix();
         this.renderer.setSize(this.width, this.height);
     }
 

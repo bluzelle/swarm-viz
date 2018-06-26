@@ -32,6 +32,111 @@ export class ChartFactory {
       chartLine.update();
     }
 
+    renderDefaultDogLineChart(chartEntry: ChartMapEntry, percentage: number) {
+      const values = [percentage,  100 - percentage];
+      const colors = ['rgba(255,255,255,0.7)', 'rgba(255,255,255,0.2)'];
+      chartEntry.chart.data.datasets[0].data = values;
+      chartEntry.chart.data.datasets[0].backgroundColor = colors;
+      chartEntry.chart.update();
+    }
+
+    renderDefaultDogChart(chartEntry: ChartMapEntry, rangeStart: number, rangeEnd: number) {
+      const values = R.range(0, 200).map((a) => a % 2 === 0 ? 1 : 2);
+      const colors = R.range(0, 200).map((a) => {
+        if (a > rangeStart && a < rangeEnd) {
+          return 'rgba(255,255,255,0.0)';
+        } else {
+          return a % 2 === 0 ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.0)';
+        }
+      });
+      chartEntry.chart.data.datasets[0].data = values;
+      chartEntry.chart.data.datasets[0].backgroundColor = colors;
+      chartEntry.chart.update();
+    }
+
+    getDoughnutLineChart(ctx) {
+      return new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'doughnut',
+          data: {
+              labels: [],
+              datasets: [{
+                  label: 'My First dataset',
+                  backgroundColor: 'rgb(255, 255, 255)',
+                  borderColor: 'rgba(255, 255, 255,0.0)',
+                  data: []
+              }]
+          },
+          options: {
+            cutoutPercentage: 99,
+            tooltips: {
+              enabled: false
+            },
+            layout: {
+              padding: {
+                  left: 20,
+                  right: 20,
+                  top: 20,
+                  bottom: 20
+              }
+            },
+            legend: {display: false},
+            scales: {
+              gridLines: {
+                display: false
+              },
+              xAxes: [{
+                display: false
+              }],
+              yAxes: [{
+                display: false
+              }]
+            }
+          }
+        });
+  }
+    getDoughnutChart(ctx) {
+      return new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'doughnut',
+          data: {
+              labels: [],
+              datasets: [{
+                  label: 'My First dataset',
+                  backgroundColor: 'rgb(255, 255, 255)',
+                  borderColor: 'rgba(255, 255, 255,0.0)',
+                  data: []
+              }]
+          },
+          options: {
+            cutoutPercentage: 90,
+            tooltips: {
+              enabled: false
+            },
+            layout: {
+              padding: {
+                  left: 20,
+                  right: 20,
+                  top: 20,
+                  bottom: 20
+              }
+            },
+            legend: {display: false},
+            scales: {
+              gridLines: {
+                display: false
+              },
+              xAxes: [{
+                display: false
+              }],
+              yAxes: [{
+                display: false
+              }]
+            }
+          }
+        });
+  }
+
     getDefaultLineChart(ctx) {
         return new Chart(ctx, {
             // The type of chart we want to create

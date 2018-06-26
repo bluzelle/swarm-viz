@@ -23,7 +23,9 @@ export class CommunicationService {
   constructor() {
 
     const initialStates = R.map((a) => {
-      return {};
+      return {
+        transactionLatency: 0
+      };
     }, R.range(0, this.NUMBER_ENTRIES_CACHE));
     bluzelle.connect('ws://127.0.0.1:8100', '');
     this.poll(initialStates, this.TIMEOUT);
