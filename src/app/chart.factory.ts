@@ -32,7 +32,7 @@ export class ChartFactory {
       chartLine.update();
     }
 
-    renderDefaultDogLineChart(chartEntry: ChartMapEntry, percentage: number) {
+    renderDefaultDogLineChart(chartEntry: ChartMapEntry, percentage) {
       const values = [percentage,  100 - percentage];
       const colors = ['rgba(255,255,255,0.7)', 'rgba(255,255,255,0.2)'];
       chartEntry.chart.data.datasets[0].data = values;

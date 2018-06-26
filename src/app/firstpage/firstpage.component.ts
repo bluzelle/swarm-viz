@@ -61,11 +61,11 @@ export class FirstpageComponent implements OnInit {
 
   private fastUpate(timeout: number) {
       const startPeers = 0;
-      this.endPeers += 2;
-      if (this.endPeers > 200) {
+      this.endPeers += 1;
+      if (this.endPeers > 100) {
         this.endPeers = 0;
       }
-      this.chartFactory.renderDefaultDogChart(this.chartPeers, startPeers, this.endPeers);
+      this.chartFactory.renderDefaultDogLineChart(this.chartPeers, this.endPeers);
       setTimeout(this.fastUpate.bind(this), timeout);
   }
 
@@ -96,7 +96,7 @@ export class FirstpageComponent implements OnInit {
     this.charts = [
       new ChartMapEntry('ChartTransactionLatency', chartTransactionLat, (state) => state.transactionLatency)
     ];
-    this.fastUpate(100);
+    this.fastUpate(200);
   }
 
   renderUI(newState) {
