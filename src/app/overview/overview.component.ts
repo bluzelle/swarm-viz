@@ -41,7 +41,7 @@ export class OverviewComponent implements OnInit {
     const start = area.start - delta;
     const end = area.end + delta;
 
-    let factor = 0;
+    let factor = -1.0;
     let scaleFactor = 0;
     let opacityFactor = 0.0;
     let factorX = 0.0;
@@ -61,19 +61,25 @@ export class OverviewComponent implements OnInit {
       if (factorX < 15) {
         factorX = 0;
       }
-    }
-    if (rotation.y > area.end && rotation.y < end) {
+    } else if (rotation.y > area.end && rotation.y < end) {
       factor = (delta - (end - rotationNew.y)) * -1;
       factor = Math.round(factor * 10000) / 10000;
       scaleFactor = 0.9; // (factor * (- 25)) + 1;
       opacityFactor = 1 + factor *  25;
       factorX = 0;
+    } else if (rotation.y > area.start && rotation.y < area.end) {
+      factor = 0;
     }
 
     if (factor !== 0) {
       container.nativeElement.style.left =  '' + factorX + 'px';
       container.nativeElement.style.transform = 'scale(' + scaleFactor + ')';
       container.nativeElement.style.opacity = '' + opacityFactor;
+    }
+    if (factor  === - 1.0) {
+      container.nativeElement.style.left =  '0px';
+      container.nativeElement.style.transform = 'scale(0.0)';
+      container.nativeElement.style.opacity = '0.0';
     }
   }
 }

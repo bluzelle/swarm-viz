@@ -11,6 +11,7 @@ import { StateUtils } from './stateUtils';
 export class CommunicationService {
   TIMEOUT = 1000;
   NUMBER_ENTRIES_CACHE = 15;
+  NODE_EMULATOR_WS = 'ws://127.0.0.1:8100';
 
   @Output() change: EventEmitter<any> = new EventEmitter();
   @Output() stateChange: EventEmitter<any> = new EventEmitter();
@@ -27,7 +28,7 @@ export class CommunicationService {
         transactionLatency: 0
       };
     }, R.range(0, this.NUMBER_ENTRIES_CACHE));
-    bluzelle.connect('ws://127.0.0.1:8100', '');
+    bluzelle.connect(this.NODE_EMULATOR_WS, '');
     this.poll(initialStates, this.TIMEOUT);
   }
 

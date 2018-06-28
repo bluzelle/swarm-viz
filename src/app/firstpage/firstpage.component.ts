@@ -96,7 +96,7 @@ export class FirstpageComponent implements OnInit {
     this.charts = [
       new ChartMapEntry('ChartTransactionLatency', chartTransactionLat, (state) => state.transactionLatency)
     ];
-    this.fastUpate(200);
+    this.fastUpate(500);
   }
 
   renderUI(newState) {

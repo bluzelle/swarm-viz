@@ -130,8 +130,6 @@ export class Globe {
     private onWindowResize( event ) {
         this.width = this.container.clientWidth;
         this.height = this.container.clientHeight;
-        //this.camera.aspect = this.width / this.height;
-        //this.camera.updateProjectionMatrix();
         this.renderer.setSize(this.width, this.height);
     }
 
