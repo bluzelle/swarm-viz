@@ -1,10 +1,10 @@
 .scanLines {
     /*** WEBKIT ***/
-    background: -webkit-repeating-linear-gradient(top, transparent 0px, transparent 1px, rgba(0, 0, 0, 0.15) 1px, rgba(0, 0, 0, 0.15) 4px);
-    -webkit-background-size: 100% 2px;
+    background: -webkit-repeating-linear-gradient(top, transparent 0px, transparent 1px, rgba(0, 0, 0, 0.1) 1px, rgba(0, 0, 0, 0.1) 4px);
+    -webkit-background-size: 100% 4px;
     /** MOZILLA **/
-    background: -moz-repeating-linear-gradient(top, transparent 0px, transparent 1px, rgba(0, 0, 0, 0.15) 1px, rgba(0, 0, 0, 0.15) 4px);
-    -moz-background-size: 100% 2px;
+    background: -moz-repeating-linear-gradient(top, transparent 0px, transparent 1px, rgba(0, 0, 0, 0.1) 1px, rgba(0, 0, 0, 0.1) 4px);
+    -moz-background-size: 100% 4px;
   }
 
 
