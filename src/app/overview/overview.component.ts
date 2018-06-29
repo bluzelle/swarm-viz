@@ -23,13 +23,14 @@ export class OverviewComponent implements OnInit {
 
   constructor(private communicationService: CommunicationService) {
     communicationService.change.subscribe(rotation => {
-       this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.firstPage, {start: 0.2, end: 3.0});
+      // this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.firstPage, {start: 0.2, end: 3.0});
       // this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.secondPage, {start: 1.0, end: 1.6});
       // this.renderSatelliteEffect(rotation.newRotation, rotation.rotation, this.summaryPage, {start: 1.8, end: 2.4});
     });
   }
 
   ngOnInit() {
+    this.firstPage.nativeElement.style.opacity = '1.0';
   }
 
 

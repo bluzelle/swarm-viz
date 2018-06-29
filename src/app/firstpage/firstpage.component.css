@@ -167,3 +167,17 @@
     -moz-box-shadow: 23px 0px 28px 25px rgba(28,88,138,1);
     box-shadow: 23px 0px 28px 25px rgba(28,88,138,1);
 }
+
+.arrow-content {
+    left: 350px;
+    top: -45px;
+    position: absolute;
+}
+
+.arrow-image{
+    left: 280px;
+    top: -50px;
+    right:0px;
+    height: 80px;
+    position: absolute;
+}

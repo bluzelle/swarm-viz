@@ -26,6 +26,7 @@ export class FirstpageComponent implements OnInit {
   minTransactionLatency = 50;
   maxTransactionLatency = 0;
   endPeers = 0;
+  avgLatency = 0;
   peersList = [];
 
   @ViewChild('doughnut') doughnut: ElementRef;
@@ -39,7 +40,7 @@ export class FirstpageComponent implements OnInit {
 
   constructor(private communicationService: CommunicationService) {
     communicationService.stateChange.subscribe((newState) => {
-      this.renderUI(newState.state);
+      this.renderUI(newState.state, newState.states);
       const randomStartNoDB = Math.floor(Math.random() * (50 - 0 + 1)) + 0;
       const randomEndNoDB = Math.floor(Math.random() * (130 - 90 + 1)) + 90;
 
@@ -99,13 +100,15 @@ export class FirstpageComponent implements OnInit {
     this.fastUpate(500);
   }
 
-  renderUI(newState) {
+  renderUI(newState, states) {
     this.totalDbSize = newState.totaldbsize;
     this.totalKvp = newState.totalkvp;
     this.crudCommits = newState.crudcommits;
     this.numDbs = newState.numdbs;
     this.peersList = newState.peersList;
     this.transactionLatency = newState.transactionLatency;
+    const v = R.sum(R.map((a) => a.transactionLatency, states));
+    this.avgLatency = Math.round(v / states.length);
     if (newState.transactionLatency < this.minTransactionLatency) {
       this.minTransactionLatency = newState.transactionLatency;
     }

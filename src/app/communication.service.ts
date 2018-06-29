@@ -9,7 +9,7 @@ import { StateUtils } from './stateUtils';
   providedIn: 'root'
 })
 export class CommunicationService {
-  TIMEOUT = 1000;
+  TIMEOUT = 200;
   NUMBER_ENTRIES_CACHE = 15;
   NODE_EMULATOR_WS = 'ws://127.0.0.1:8100';
 
