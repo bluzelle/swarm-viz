@@ -158,12 +158,12 @@ export class Globe {
     }
 
     renderPoints() {
-        this.renderPointsRec(this.points, 10, this.points.length / this.POINTS_RENDER_FACTOR);
+        this.renderPointsRec(this.points, 10, Math.round(this.points.length / this.POINTS_RENDER_FACTOR));
     }
 
     private renderPoint(pointData, parent) {
         const color = (0xFFFFFF << 0);
-        const geometry = new THREE.BoxGeometry( 1, 1, pointData.value * 600 );
+        const geometry = new THREE.BoxGeometry( 1, 1, pointData.value * 6000 );
         const material = new THREE.MeshBasicMaterial( {color: new THREE.Color( color )} );
         const cylinder = new THREE.Mesh( geometry, material );
 

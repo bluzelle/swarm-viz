@@ -30,7 +30,7 @@ export class GlobeComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    const MIN_POPULATION_FILTER = 0.003;
+    const MIN_POPULATION_FILTER = 0.01;
 
 
     this.globe = new Globe(this.rendererContainer.nativeElement, {
@@ -41,7 +41,7 @@ export class GlobeComponent implements OnInit {
     const self = this;
     setTimeout(() => {
       const xhr = new XMLHttpRequest();
-      xhr.open('GET', '../../assets/population.json', true);
+      xhr.open('GET', '../../assets/population_small.json', true);
       xhr.onreadystatechange = function(e) {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
@@ -53,7 +53,7 @@ export class GlobeComponent implements OnInit {
                   return a.concat([[b]]);
               }
             }, [[]]).filter((v) => v[2] > MIN_POPULATION_FILTER).forEach((v) => {
-              self.globe.addPoint(v[0], v[1], v[2]);
+                self.globe.addPoint(v[0], v[1], v[2]);
             });
             self.globe.renderPoints();
           }

@@ -163,6 +163,7 @@
 .graph-border{
     position: absolute;
     left:0px;
+    height: 100px;
     -webkit-box-shadow: 23px 0px 28px 25px rgba(28,88,138,1);
     -moz-box-shadow: 23px 0px 28px 25px rgba(28,88,138,1);
     box-shadow: 23px 0px 28px 25px rgba(28,88,138,1);
