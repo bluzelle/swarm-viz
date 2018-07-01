@@ -36,6 +36,10 @@ export class FirstpageComponent implements OnInit {
   @ViewChild('doughnutPeers') doughnutPeers: ElementRef;
 
   @ViewChild('transactionLatencyChart') transactionLatencyChart: ElementRef;
+  @ViewChild('transactionLatencyChartTop') transactionLatencyChartTop: ElementRef;
+  @ViewChild('barChart') barChartElem: ElementRef;
+  @ViewChild('barChartHorizontal') barChartHorizontal: ElementRef;
+
 
 
   constructor(private communicationService: CommunicationService) {
@@ -94,8 +98,22 @@ export class FirstpageComponent implements OnInit {
     const ctxTransactionLat = this.transactionLatencyChart.nativeElement.getContext('2d');
     const chartTransactionLat = this.chartFactory.getDefaultLineChart(ctxTransactionLat);
 
+    const ctxTransactionLatTop = this.transactionLatencyChartTop.nativeElement.getContext('2d');
+    const chartTransactionLatTop = this.chartFactory.getDefaultLineChart(ctxTransactionLatTop);
+
+    const ctxBarChart = this.barChartElem.nativeElement.getContext('2d');
+    const chartBar  = this.chartFactory.getStackedBarChart(ctxBarChart);
+    const barChart  = new ChartMapEntry('barChart', chartBar, (state) => state.transactionLatency);
+
+    const ctxBarChartHorizontal = this.barChartHorizontal.nativeElement.getContext('2d');
+    const chartBarHorizontal  = this.chartFactory.getStackedBarChart(ctxBarChartHorizontal);
+    const barChartHorizontal  = new ChartMapEntry('barChart', chartBarHorizontal, (state) => state.transactionLatency);
+
     this.charts = [
-      new ChartMapEntry('ChartTransactionLatency', chartTransactionLat, (state) => state.transactionLatency)
+      new ChartMapEntry('ChartTransactionLatency', chartTransactionLat, (state) => state.transactionLatency),
+      new ChartMapEntry('ChartTransactionLatencyTop', chartTransactionLatTop, (state) => state.transactionLatency),
+      barChart,
+      barChartHorizontal
     ];
     this.fastUpate(500);
   }

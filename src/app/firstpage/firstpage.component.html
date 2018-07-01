@@ -1,3 +1,18 @@
+<div class="row" style="position: absolute;transform: rotate(90deg);width:250px;left:-200px;top:80px">
+    <canvas #barChartHorizontal id="canvas" width="150" height="30">{{ chart }}</canvas>
+</div>
+
+
+<div class="row"  style="width:500px;height:100px;position: absolute;right: -100px;top: -200px;z-index: 60;">
+    <div class="col-lg-8">
+        <div class="graph-border"></div>
+        <canvas #transactionLatencyChartTop id="canvas" width="150" height="50">{{ chart }}</canvas>
+    </div>
+    <div class="col-lg-4" style="padding:0px;padding-top:40px" align="right">
+        <p class="title">{{transactionLatency | number}} ms</p>
+        <p class="subtitle"> Transaction Latency</p>
+    </div>
+</div>
 <div class="row">
   <div class="col-lg-6 col-sm-6"  align="center">
       <div class="circle-group-dash">
@@ -16,11 +31,12 @@
   <div class="col-lg-6 col-sm-6"  align="center">
         <div class="circle-group-two-sub">
                 <img src="../../img/arrow_left.png" class="arrow-image">
-                <div class="arrow-content"> 
+                <div class="arrow-content" align="right"> 
                     <p class="title" style="font-size: 27px;">{{avgLatency | number}}</p>
                     <p class="subtitle" style="width:100px">AVG Latency</p>
                 </div>
             <div class="half-circle">
+                <div class="dot" style="left:175px;top:-7px;"></div>
                 <p class="title">{{transactionLatency | number}} ms</p>
                 <p class="subtitle"> Transaction Latency</p>
             </div>
@@ -61,7 +77,10 @@
         </div>
 </div>
 <div class="row"  style="height:100px">
-    <div class="col-lg-9">
+    <div class="col-lg-4" style="padding-top:30px">
+        <canvas #barChart id="canvas" width="150" height="30">{{ chart }}</canvas>
+    </div>
+    <div class="col-lg-5" style="padding-top:30px">
         <div class="graph-border"></div>
         <canvas #transactionLatencyChart id="canvas" width="150" height="30">{{ chart }}</canvas>
     </div>

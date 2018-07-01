@@ -85,6 +85,9 @@ export class Globe {
       this.camera = new THREE.PerspectiveCamera(22, this.width / this.height, 1, 10000);
       this.camera.position.z = this.distance;
       this.scene = new THREE.Scene();
+      const directionalLight = new THREE.DirectionalLight(0xffffff,1);
+      directionalLight.position.set(1, 0, 1).normalize();
+      this.scene.add(directionalLight);
       this.scene.background = new THREE.Color( 0x1c588a );
 
       this.scene.rotation.y = 0.0;
@@ -163,7 +166,7 @@ export class Globe {
 
     private renderPoint(pointData, parent) {
         const color = (0xFFFFFF << 0);
-        const geometry = new THREE.BoxGeometry( 1, 1, pointData.value * 6000 );
+        const geometry = new THREE.BoxGeometry( 5, 5, pointData.value * 1500 );
         const material = new THREE.MeshBasicMaterial( {color: new THREE.Color( color )} );
         const cylinder = new THREE.Mesh( geometry, material );
 
@@ -178,6 +181,7 @@ export class Globe {
             cylinder.updateMatrix();
         }
         parent.add(cylinder);
+
     }
 
     animate() {

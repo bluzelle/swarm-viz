@@ -54,6 +54,84 @@ export class ChartFactory {
       chartEntry.chart.update();
     }
 
+    getStackedBarChart(ctx) {
+      return new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: [],
+          datasets: [{
+              label: 'My First dataset',
+              backgroundColor: 'rgb(255, 255, 255)',
+              borderColor: 'rgba(255, 255, 255,0.0)',
+              data: []
+          }, {
+            label: 'My Second dataset',
+            backgroundColor: 'rgba(255, 255, 255,0.5)',
+            borderColor: 'rgba(255, 255, 255,0.0)',
+            data: R.range(0, 15).map ( (a) => Math.floor(Math.random() * (20 - 5 + 1)) + 5 )
+        }]
+        },
+        options: {
+          title: {
+            display: false
+          },
+          tooltips: {
+            enabled: false
+          },
+          responsive: true,
+          legend: {display: false},
+          scales: {
+            xAxes: [{
+              stacked: true,
+              display: false
+            }],
+            yAxes: [{
+              stacked: true,
+              display: false
+            }]
+          }
+        }
+      });
+    }
+
+    getVerticalBarChart(ctx) {
+      return new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+          labels: [],
+          datasets: [{
+              label: 'My First dataset',
+              backgroundColor: 'rgb(255, 255, 255)',
+              borderColor: 'rgb(255, 255, 255)',
+              data: [],
+              fill: false,
+              pointBackgroundColor: 'rgba(255, 255, 255,0.0)',
+              pointBorderColor: 'rgba(255, 255, 255,0.0)',
+          }]
+        },
+        options: {
+          title: {
+            display: false
+          },
+          tooltips: {
+            enabled: false
+          },
+          responsive: true,
+          legend: {display: false},
+          scales: {
+            xAxes: [{
+              stacked: true,
+              display: false
+            }],
+            yAxes: [{
+              stacked: true,
+              display: false
+            }]
+          }
+        }
+      });
+    }
+
     getDoughnutLineChart(ctx) {
       return new Chart(ctx, {
           // The type of chart we want to create
