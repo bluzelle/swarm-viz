@@ -1,5 +1,5 @@
-<div class="row" style="position: absolute;transform: rotate(90deg);width:250px;left:-200px;top:80px">
-    <canvas #barChartHorizontal id="canvas" width="150" height="30">{{ chart }}</canvas>
+<div class="row" style="position: absolute;transform: rotate(90deg);width:300px;left:-200px;top:80px">
+    <canvas #barChartHorizontal id="canvas" width="150" height="50">{{ chart }}</canvas>
 </div>
 
 
@@ -36,7 +36,7 @@
                     <p class="subtitle" style="width:100px">AVG Latency</p>
                 </div>
             <div class="half-circle">
-                <div class="dot" style="left:175px;top:-7px;"></div>
+                <!--div class="dot" style="left:175px;top:-7px;"></div-->
                 <p class="title">{{transactionLatency | number}} ms</p>
                 <p class="subtitle"> Transaction Latency</p>
             </div>
@@ -69,22 +69,23 @@
             </div>
         </div>
     <div class="col-lg-4 col-sm-4"  align="center">
-            <canvas #doughnutDB id="doughnutCanvasDB" width="150" height="150"> </canvas>
-            <div class="circle-big" style="padding-top:60px">
+            <!--div class="dot" style="position: absolute;left:240px;top:60px"></div-->
+            <div class="quarter-circle-small" style="position: absolute;left:200px;top:-60px;">
+                <p class="title" style="font-size: 23px;">{{avgDBSize | number}}</p>
+                <p class="subtitle">Avg DB Size</p>
+            </div>
+            <div class="circle-big circle-big-shadow" style="padding-top:60px">
                 <p class="title" style="font-size: 23px;">{{totalDbSize | number}}</p>
                 <p class="subtitle">Total DB Size</p>
             </div>
+            <canvas #doughnutDB id="doughnutCanvasDB" width="150" height="150"> </canvas>
         </div>
 </div>
-<div class="row"  style="height:100px">
-    <div class="col-lg-4" style="padding-top:30px">
+<div class="row"  style="height:50px;position: absolute;left:-90px;width:120%">
+    <div class="col-lg-9" style="padding-top:30px;">
         <canvas #barChart id="canvas" width="150" height="30">{{ chart }}</canvas>
     </div>
-    <div class="col-lg-5" style="padding-top:30px">
-        <div class="graph-border"></div>
-        <canvas #transactionLatencyChart id="canvas" width="150" height="30">{{ chart }}</canvas>
-    </div>
-    <div class="col-lg-3" style="padding-top:40px" align="right">
+    <div class="col-lg-3" style="padding-top:60px" align="right">
         <p class="title">{{transactionLatency | number}} ms</p>
         <p class="subtitle"> Transaction Latency</p>
     </div>

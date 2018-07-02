@@ -10,7 +10,7 @@ import { StateUtils } from './stateUtils';
 })
 export class CommunicationService {
   TIMEOUT = 800;
-  NUMBER_ENTRIES_CACHE = 15;
+  NUMBER_ENTRIES_CACHE = 20;
   NODE_EMULATOR_WS = 'ws://127.0.0.1:8100';
 
   @Output() change: EventEmitter<any> = new EventEmitter();

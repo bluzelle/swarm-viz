@@ -36,6 +36,20 @@
     padding-top: 50px;
 }
 
+.quarter-circle-small{
+    height: 120px;
+    width: 120px;
+    border-radius: 160px;
+    background-color:#1c588a;
+    /* border-top-left-radius: 160px;
+    border-top-right-radius: 160px;
+    border-bottom-right-radius: 160px;
+    border-bottom-left-radius: 160px; */
+    border: 2px solid #FFF;
+    border-bottom: 0;
+    padding-top: 30px;
+}
+
 .half-circle .title{
     font-size: 30px;
 }
@@ -49,6 +63,12 @@
     margin: 10px;
     padding-top: 40px;
     background-color: #1c588a;
+}
+
+.circle-big-shadow {
+    -webkit-box-shadow: 20px -10px 20px 0px #1c588a;
+    -moz-box-shadow: 20px -10px 20px 0px #1c588a;
+    box-shadow: 20px -10px 20px 0px #1c588a;
 }
 .circle-big .title{
     font-size: 38px;
@@ -172,6 +192,7 @@
 .arrow-content {
     left: 360px;
     top: -45px;
+    width: 118px;
     position: absolute;
 }
 
@@ -179,17 +200,18 @@
     left: 280px;
     top: -50px;
     right:0px;
-    height: 80px;
+    height: 135px;
+    width: 200px;
     position: absolute;
 }
 
 .dot{
     background-color: #FFF;
-    -webkit-box-shadow: 0px 0px 20px 0px rgba(255,255,255,1);
-    -moz-box-shadow: 0px 0px 20px 0px rgba(255,255,255,1);
-    box-shadow: 0px 0px 20px 0px rgba(255,255,255,1);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(28,88,138,1);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(28,88,138,1);
+    box-shadow: 0px 0px 20px 0px rgba(28,88,138,1);
     position: absolute;
-    width:15px;
-    height:15px;
+    width:30px;
+    height:30px;
     border-radius: 15px;
 }

@@ -68,7 +68,7 @@ export class ChartFactory {
             label: 'My Second dataset',
             backgroundColor: 'rgba(255, 255, 255,0.5)',
             borderColor: 'rgba(255, 255, 255,0.0)',
-            data: R.range(0, 15).map ( (a) => Math.floor(Math.random() * (20 - 5 + 1)) + 5 )
+            data: R.range(0, 20).map ( (a) => Math.floor(Math.random() * (20 - 5 + 1)) + 5 )
         }]
         },
         options: {
@@ -77,6 +77,14 @@ export class ChartFactory {
           },
           tooltips: {
             enabled: false
+          },
+          layout: {
+            padding: {
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 20
+            }
           },
           responsive: true,
           legend: {display: false},

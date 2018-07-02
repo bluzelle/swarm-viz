@@ -27,6 +27,7 @@ export class FirstpageComponent implements OnInit {
   maxTransactionLatency = 0;
   endPeers = 0;
   avgLatency = 0;
+  avgDBSize = 0;
   peersList = [];
 
   @ViewChild('doughnut') doughnut: ElementRef;
@@ -95,9 +96,6 @@ export class FirstpageComponent implements OnInit {
     const peersChart = this.chartFactory.getDoughnutChart(ctxPeers);
     this.chartPeers = new ChartMapEntry('chartCRUD', peersChart, (state) => state.totaldbsize);
 
-    const ctxTransactionLat = this.transactionLatencyChart.nativeElement.getContext('2d');
-    const chartTransactionLat = this.chartFactory.getDefaultLineChart(ctxTransactionLat);
-
     const ctxTransactionLatTop = this.transactionLatencyChartTop.nativeElement.getContext('2d');
     const chartTransactionLatTop = this.chartFactory.getDefaultLineChart(ctxTransactionLatTop);
 
@@ -110,7 +108,6 @@ export class FirstpageComponent implements OnInit {
     const barChartHorizontal  = new ChartMapEntry('barChart', chartBarHorizontal, (state) => state.transactionLatency);
 
     this.charts = [
-      new ChartMapEntry('ChartTransactionLatency', chartTransactionLat, (state) => state.transactionLatency),
       new ChartMapEntry('ChartTransactionLatencyTop', chartTransactionLatTop, (state) => state.transactionLatency),
       barChart,
       barChartHorizontal
@@ -125,6 +122,7 @@ export class FirstpageComponent implements OnInit {
     this.numDbs = newState.numdbs;
     this.peersList = newState.peersList;
     this.transactionLatency = newState.transactionLatency;
+    this.avgDBSize = Math.round(this.totalDbSize / this.numDbs);
     const v = R.sum(R.map((a) => a.transactionLatency, states));
     this.avgLatency = Math.round(v / states.length);
     if (newState.transactionLatency < this.minTransactionLatency) {
