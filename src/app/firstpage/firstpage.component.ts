@@ -10,6 +10,9 @@ import * as R from 'ramda';
 })
 
 export class FirstpageComponent implements OnInit {
+  MIN_LATENCY = 0;
+  MAX_LATENCY = 1000;
+
   chartFactory = new ChartFactory();
   chartNoDBEntry = null;
   chartDBSize = null;
@@ -125,11 +128,15 @@ export class FirstpageComponent implements OnInit {
     this.avgDBSize = Math.round(this.totalDbSize / this.numDbs);
     const v = R.sum(R.map((a) => a.transactionLatency, states));
     this.avgLatency = Math.round(v / states.length);
-    if (newState.transactionLatency < this.minTransactionLatency) {
+    const validated = this.validateLatency(newState.transactionLatency, this.MIN_LATENCY, this.MAX_LATENCY);
+    if (newState.transactionLatency < this.minTransactionLatency && validated) {
       this.minTransactionLatency = newState.transactionLatency;
     }
-    if (newState.transactionLatency > this.maxTransactionLatency) {
+    if (newState.transactionLatency > this.maxTransactionLatency && validated) {
       this.maxTransactionLatency = newState.transactionLatency;
     }
+  }
+  private validateLatency(latency, min, max) {
+    return latency > min && latency < max;
   }
 }
