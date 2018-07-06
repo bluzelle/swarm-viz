@@ -17,6 +17,10 @@
 <div class="row">
   <div class="col-lg-6 col-sm-6"  align="center">
       <div class="circle-group-dash">
+        <div class="quarter-circle-small" style="position: absolute;left:260px;top:-60px;">
+            <p class="title" style="font-size: 23px;">{{avgDBSize | number}}</p>
+            <p class="subtitle">Avg DB Size</p>
+        </div>
         <canvas #doughnut id="doughnutCanvas" width="150" height="150"> </canvas>
         <div class="circle-big">
             <p class="title">{{numDbs | number}}</p>
@@ -64,20 +68,16 @@
     </div>
     <div class="col-lg-4 col-sm-4"  align="center">
             <canvas #doughnutKVP id="doughnutCanvasKVP" width="150" height="150"> </canvas>
-            <div class="circle-small">
+            <div class="circle-big">
                 <p class="title" >{{totalKvp | number}}</p>
                 <p class="subtitle">Total KVP</p>
             </div>
         </div>
     <div class="col-lg-4 col-sm-4"  align="center">
             <!--div class="dot" style="position: absolute;left:240px;top:60px"></div-->
-            <div class="quarter-circle-small" style="position: absolute;left:200px;top:-60px;">
-                <p class="title" style="font-size: 23px;">{{avgDBSize | number}}</p>
-                <p class="subtitle">Avg DB Size</p>
-            </div>
             <div class="circle-big circle-big-shadow" style="padding-top:60px">
                 <p class="title" style="font-size: 23px;">{{totalDbSize | number}}</p>
-                <p class="subtitle">Total DB Size</p>
+                <p class="subtitle">Total DB Size (Bytes)</p>
             </div>
             <canvas #doughnutDB id="doughnutCanvasDB" width="150" height="150"> </canvas>
         </div>

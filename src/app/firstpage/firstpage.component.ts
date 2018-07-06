@@ -10,7 +10,7 @@ import * as R from 'ramda';
 })
 
 export class FirstpageComponent implements OnInit {
-  MIN_LATENCY = 0;
+  MIN_LATENCY = 40;
   MAX_LATENCY = 1000;
 
   chartFactory = new ChartFactory();

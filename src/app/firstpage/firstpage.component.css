@@ -19,6 +19,11 @@
     margin-bottom: 0px;
 }
 
+.title small {
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
 .subtitle{
     text-transform: uppercase;
     font-size: 12px;
@@ -150,10 +155,10 @@
 
 #doughnutCanvasKVP {
     position: absolute;
-    left: 37px;
-    top: -15px;
-    width: 170px !important;
-    height: 170px !important;
+    left: -8px;
+    top: -30px;
+    width: 260px !important;
+    height: 260px !important;
 }
 
 #doughnutCanvasCRUD {
