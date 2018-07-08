@@ -25,10 +25,17 @@ export class ChartFactory {
       colorsBack[colorsBack.length - 1] = 'rgba(255, 255, 255,1.0)';
       const colorsBorder = states.map((a) => 'rgba(255, 255, 255,0.0)');
       colorsBorder[colorsBorder.length - 1] = 'rgba(255, 255, 255,0.5)';
+
+      const images = states.map((a) => undefined);
+      const img = new Image(20, 20);
+      img.src = '../img/dot_glow.png';
+      images[images.length - 1] = img;
+
       chartLine.data.labels = labels;
       chartLine.data.datasets[0].data  = values;
       chartLine.data.datasets[0].pointBackgroundColor = colorsBack;
       chartLine.data.datasets[0].pointBorderColor = colorsBorder;
+      chartLine.data.datasets[0].pointStyle = images;
       chartLine.update();
     }
 
@@ -238,8 +245,8 @@ export class ChartFactory {
                     pointBackgroundColor: 'rgba(255, 255, 255,0.0)',
                     pointBorderColor: 'rgba(255, 255, 255,0.0)',
                     pointBorderWidth: 2,
-                    lineTension: .5
-                }]
+                    lineTension: .5,
+                }],
             },
             options: {
               tooltips: {

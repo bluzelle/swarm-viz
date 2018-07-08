@@ -19,7 +19,7 @@
       <div class="circle-group-dash">
         <div class="quarter-circle-small" style="position: absolute;left:260px;top:-60px;">
             <p class="title" style="font-size: 23px;">{{avgDBSize | number}}</p>
-            <p class="subtitle">Avg DB Size</p>
+            <p class="subtitle" style="font-size: 10px;">Avg DB Size (Bytes)</p>
         </div>
         <canvas #doughnut id="doughnutCanvas" width="150" height="150"> </canvas>
         <div class="circle-big">
@@ -37,7 +37,7 @@
         <div class="circle-group-two-sub">
                 <img src="../../img/arrow_left.png" class="arrow-image">
                 <div class="arrow-content" align="right"> 
-                    <p class="title" style="font-size: 27px;">{{avgLatency | number}}</p>
+                    <p class="title" style="font-size: 27px;">{{avgLatency | number}} ms</p>
                     <p class="subtitle" style="width:100px">AVG Latency</p>
                 </div>
             <div class="half-circle">
