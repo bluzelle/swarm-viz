@@ -12,7 +12,7 @@ import { GlobeUtils } from './globe.utils';
 
 export class GlobeComponent implements OnInit {
   private ROTATE_GLOBE_INTERVAL_MS = 20;
-  private DEFAULT_MOVEMENT_Y = 0.002;
+  private DEFAULT_MOVEMENT_Y = 0.001;
   private DEFAULT_MOVEMENT_X = 0.0;
 
   private globe = null;
