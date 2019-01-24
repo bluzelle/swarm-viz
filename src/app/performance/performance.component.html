@@ -1,59 +1,61 @@
-<div class="row" style="margin-bottom:60px !important">
-    <div class="col-lg-6">
-        <div class="row">
-            <img src="https://eventil.s3.amazonaws.com/uploads/group/avatar/2803/highres_468487350.jpeg" style="height:100px;width:auto;"/>
-            <!--h4 style="color:#FFF;margin-left:100px;margin-top: -15px;font-size: 19px">Realtime visualization</h4-->
-        </div>
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="rounded-bordered-container">
-                    <div class="rounded-bordered-content">
-                        <div class="title">340</div> 
-                        <div class="subtitle">422</div> 
-                    </div>
-                </div>
+<div class="container">
+    <div class="row" style="margin-bottom:60px !important">
+        <div class="col-lg-6 col-sm-6">
+            <div class="row logo-row">
+                <img src="https://eventil.s3.amazonaws.com/uploads/group/avatar/2803/highres_468487350.jpeg" style="height:100px;width:auto;"/>
+                <!--h4 style="color:#FFF;margin-left:100px;margin-top: -15px;font-size: 19px">Realtime visualization</h4-->
             </div>
-            <div class="col-lg-3">
-                <div class="rounded-bordered-container">
-                    <div class="rounded-bordered-content">
-                        <div class="title">340</div> 
-                        <div class="subtitle">422</div> 
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="rounded-bordered-container">
-                    <div class="rounded-bordered-content">
-                        <div class="title">340</div> 
-                        <div class="subtitle">422</div> 
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="rounded-bordered-container">
-                    <div class="rounded-bordered-content">
-                        <div class="title">340</div> 
-                        <div class="subtitle">422</div> 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <!--CHART-->
-        </div>
-
-        <div class="row">
-            <div class="col-lg-3">
-                    <div class="rounded-button">
-
+            <div class="row info-row">
+                <div class="col-lg-3">
+                    <div class="rounded-bordered-container">
+                        <div class="rounded-bordered-content">
+                            <div class="title">340</div> 
+                            <div class="subtitle">422</div> 
                         </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="rounded-bordered-container">
+                        <div class="rounded-bordered-content">
+                            <div class="title">340</div> 
+                            <div class="subtitle">422</div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="rounded-bordered-container">
+                        <div class="rounded-bordered-content">
+                            <div class="title">340</div> 
+                            <div class="subtitle">422</div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="rounded-bordered-container">
+                        <div class="rounded-bordered-content">
+                            <div class="title">340</div> 
+                            <div class="subtitle">422</div> 
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-9">
+            <div class="row graph-row">
+                <canvas #performanceGraph id="canvas" width="150" height="40">{{ chart }}</canvas>
+            </div>
+            <div class="row table-row">
+                <div class="col-lg-3 col-sm-3">
+                    <div class="rounded-button">
+                        <i class="fas fa-pause fa-lg"></i>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-sm-9">
 
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-6">
-        <app-globe></app-globe>
+        <div class="col-lg-2 col-sm-2"></div>
+        <div class="col-lg-4 col-sm-4">
+            <app-globe></app-globe>
+        </div>
     </div>
 </div>

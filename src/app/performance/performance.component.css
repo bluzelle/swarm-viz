@@ -31,8 +31,38 @@
 }
 
 .rounded-button {
-    width: 100px;
-    height: 100px;;
+    display: flex;
+    width: 60px;
+    height: 60px;;
     border-radius: 100px;
-    background-color: rgba(255, 255, 255, 0.2)
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    z-index: 60;
+    position: absolute;
+}
+
+.rounded-button :hover {
+    color: rgba(255, 255, 255, .8);
+}
+
+.rounded-button i {
+    margin: auto;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+
+.logo-row {
+    margin-bottom: 20%;
+}
+
+.info-row {
+    margin-bottom: 40px;
+}
+
+.graph-row {
+    margin-bottom: 40px;
+}
+
+.table-row {
+    margin-bottom: 40px;
 }
