@@ -1,0 +1,38 @@
+.rounded-bordered-container {
+    width:100px;
+    height: 100px;
+    border-radius: 100px;
+    border: 2px solid white;
+    display: flex;
+    color: white;
+}
+
+.active-shadow {
+    border-radius: 100px;
+    -webkit-box-shadow: 0px -5px 20px 10px #FFFFFF;
+    -moz-box-shadow: 0px -5px 20px 10px #FFFFFF;
+    box-shadow: 0px -5px 20px 10px #FFFFFF;
+}
+
+.rounded-bordered-content {
+    margin: auto;
+}
+
+.rounded-bordered-container .title{
+    margin: auto;
+    font-size: 28px;
+    text-align: center;
+}
+
+.rounded-bordered-container .subtitle{
+    margin: auto;
+    font-size: 14px;
+    text-align: center;
+}
+
+.rounded-button {
+    width: 100px;
+    height: 100px;;
+    border-radius: 100px;
+    background-color: rgba(255, 255, 255, 0.2)
+}
