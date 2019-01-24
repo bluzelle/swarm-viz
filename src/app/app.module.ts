@@ -5,9 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GlobeComponent } from './globe/globe.component';
 import { OverviewComponent } from './overview/overview.component';
-import { FirstpageComponent } from './firstpage/firstpage.component';
-import { SecondpageComponent } from './secondpage/secondpage.component';
-import { SummarypageComponent } from './summarypage/summarypage.component';
+import { FirstpageComponent } from './overview/firstpage/firstpage.component';
+import { SecondpageComponent } from './overview/secondpage/secondpage.component';
+import { SummarypageComponent } from './overview/summarypage/summarypage.component';
+import { PerformanceComponent } from './performance/performance.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SummarypageComponent } from './summarypage/summarypage.component';
     OverviewComponent,
     FirstpageComponent,
     SecondpageComponent,
-    SummarypageComponent
+    SummarypageComponent,
+    PerformanceComponent
   ],
   imports: [
     BrowserModule,

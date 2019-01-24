@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
-import { CommunicationService } from '../communication.service';
-import { ChartFactory,  ChartMapEntry } from '../../app/chart.factory';
+import { CommunicationService } from '../../communication.service';
+import { ChartFactory,  ChartMapEntry } from '../../../app/chart.factory';
 import * as R from 'ramda';
 
 @Component({
