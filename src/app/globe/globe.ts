@@ -82,10 +82,10 @@ export class Globe {
       this.container.style.color = '#fff';
       this.container.style.font = '13px/20px Arial, sans-serif';
       let shader, uniforms, material;
-      this.camera = new THREE.PerspectiveCamera(22, this.width / this.height, 1, 10000);
+      this.camera = new THREE.PerspectiveCamera(34, this.width / this.height, 1, 10000);
       this.camera.position.z = this.distance;
       this.scene = new THREE.Scene();
-      const directionalLight = new THREE.DirectionalLight(0xffffff,1);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
       directionalLight.position.set(1, 0, 1).normalize();
       this.scene.add(directionalLight);
       this.scene.background = new THREE.Color( 0x1c588a );
@@ -193,7 +193,7 @@ export class Globe {
 
     render() {
         const posLook = {x: this.mesh.position.x, y: this.mesh.position.y, z: this.mesh.position.z};
-        this.camera.position.x = -250;
+        //this.camera.position.x = -250;
         this.renderer.render(this.scene, this.camera);
     }
 
