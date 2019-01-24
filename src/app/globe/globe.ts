@@ -4,7 +4,11 @@ export class Globe {
     private PI_HALF = Math.PI / 2;
     private POINTS_RENDER_FACTOR = 50;
 
-    opts = {};
+    opts = {
+        imgDir: '',
+        width: 435,
+        height: 700
+    };
     imgDir = '';
     width = 435;
     height = 700;
@@ -19,12 +23,12 @@ export class Globe {
     private points = [];
 
 
-    constructor(container, opts) {
+    constructor(container, options) {
         this.container = container;
-        this.opts = opts || this.opts;
-        this.imgDir = opts.imgDir || this.imgDir;
-        this.width = this.container.clientWidth;
-        this.height = this.container.clientHeight;
+        this.opts = {...this.opts, ...options };
+        this.imgDir = this.opts.imgDir;
+        this.width = this.opts.width;
+        this.height = this.opts.height;
         const shaders = {
             'earth' : {
                 uniforms: {
@@ -82,7 +86,7 @@ export class Globe {
       this.container.style.color = '#fff';
       this.container.style.font = '13px/20px Arial, sans-serif';
       let shader, uniforms, material;
-      this.camera = new THREE.PerspectiveCamera(34, this.width / this.height, 1, 10000);
+      this.camera = new THREE.PerspectiveCamera(35, this.width / this.height, 1, 10000);
       this.camera.position.z = this.distance;
       this.scene = new THREE.Scene();
       const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
