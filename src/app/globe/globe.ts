@@ -88,6 +88,8 @@ export class Globe {
       let shader, uniforms, material;
       this.camera = new THREE.PerspectiveCamera(35, this.width / this.height, 1, 10000);
       this.camera.position.z = this.distance;
+      // this.camera.position.set( 0, 0, 100 );
+      // this.camera.lookAt( 0, 0, 0 );
       this.scene = new THREE.Scene();
       const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
       directionalLight.position.set(1, 0, 1).normalize();
@@ -132,6 +134,19 @@ export class Globe {
       this.container.addEventListener('resize', this.onWindowResize.bind(this), false);
 
       const self = this;
+
+      this.drawLine(this.scene);
+    }
+
+    private drawLine(parent) {
+        const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+        const geometry = new THREE.Geometry();
+        geometry.vertices.push(new THREE.Vector3( -10, 0, 0) );
+        geometry.vertices.push(new THREE.Vector3( 0, 10, 0) );
+        geometry.vertices.push(new THREE.Vector3( 10, 0, 0) );
+        const line = new THREE.Line( geometry, material );
+        this.scene.add( line );
+        this.renderer.render( this.scene, this.camera );
     }
 
     private onWindowResize( event ) {
@@ -197,7 +212,7 @@ export class Globe {
 
     render() {
         const posLook = {x: this.mesh.position.x, y: this.mesh.position.y, z: this.mesh.position.z};
-        //this.camera.position.x = -250;
+        // this.camera.position.x = -250;
         this.renderer.render(this.scene, this.camera);
     }
 
